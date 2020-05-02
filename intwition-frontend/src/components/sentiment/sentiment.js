@@ -52,7 +52,7 @@ class Sentiment extends React.Component {
         axios.get('http://localhost:8080/sentiment/term/' + this.state.query)
             .then(res => {
                 let response = res.data;
-                this.setState({ sentiment: response.result, loading: false, tweets: response.tweets, cloud: response.cloud })
+                this.setState({ sentiment: response.sentiment.result, loading: false, tweets: response.tweets, cloud: response.cloud })
             }).catch(err => {
                 this.setState({ sentiment: "Error", loading: false, tweets: [], cloud: [] })
             })
