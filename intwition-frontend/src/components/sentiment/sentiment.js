@@ -2,7 +2,8 @@
 import React from 'react';
 import './sentiment.css';
 import axios from 'axios';
-import { TextField, Button, CircularProgress } from '@material-ui/core';
+
+import { TextField, Button, CircularProgress, useTheme } from '@material-ui/core';
 import {
     SentimentVeryDissatisfied,
     SentimentDissatisfied,
@@ -12,6 +13,7 @@ import {
     Error
 } from '@material-ui/icons';
 import { TagCloud } from 'react-tagcloud';
+import { withTheme } from '@material-ui/core/styles'
 
 class Sentiment extends React.Component {
     constructor(props) {
@@ -21,6 +23,7 @@ class Sentiment extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.clickCloud = this.clickCloud.bind(this);
+        this.keyPress = this.keyPress.bind(this);
     }
 
     handleChange(event) {
@@ -36,6 +39,13 @@ class Sentiment extends React.Component {
     clickCloud(event) {
         this.setState({ query: event.value, sentiment: '', loading: true, tweets: [], cloud: [] })
         this.analyze();
+    }
+
+    keyPress(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            this.analyze();
+        }
     }
 
     analyze() {
@@ -56,6 +66,7 @@ class Sentiment extends React.Component {
         let face;
 
         const data = this.state.cloud;
+        const { theme } = this.props;
 
         const options = {
             luminosity: 'dark',
@@ -85,11 +96,20 @@ class Sentiment extends React.Component {
             return <li>{tweet}</li>
         });
 
+        const style = {
+            color: theme.palette.primary.main
+        };
+
         return (
             <div>
-                <h1 style={{ color: "#475D93" }}>intwition.io</h1>
+                <h1 style={style}>intwition.io</h1>
                 <div className="input">
-                    <TextField value={query} variant="outlined" label="Query" color="primary" onChange={this.handleChange} />
+                    <TextField 
+                    value={query} variant="outlined" 
+                    label="Query" color="primary" 
+                    onChange={this.handleChange} 
+                    onKeyPress={this.keyPress}
+                    autoFocus/>
                 </div>
                 <div className="input">
                     <Button variant="contained" onClick={this.handleSubmit}>Analyze</Button>
@@ -113,4 +133,4 @@ class Sentiment extends React.Component {
     }
 }
 
-export default Sentiment;
+export default withTheme(Sentiment);
