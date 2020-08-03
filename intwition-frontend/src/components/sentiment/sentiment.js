@@ -3,7 +3,7 @@ import React from 'react';
 import './sentiment.css';
 import axios from 'axios';
 
-import { TextField, Button, CircularProgress, useTheme } from '@material-ui/core';
+import { TextField, Button, CircularProgress, useTheme, Grid } from '@material-ui/core';
 import {
     SentimentVeryDissatisfied,
     SentimentDissatisfied,
@@ -49,7 +49,7 @@ class Sentiment extends React.Component {
     }
 
     analyze() {
-        axios.get('http://localhost:8080/sentiment/term/' + this.state.query)
+        axios.get('http://localhost:8080/analyze/term/' + this.state.query)
             .then(res => {
                 let response = res.data;
                 this.setState({ sentiment: response.sentiment.result, loading: false, tweets: response.tweets, cloud: response.cloud })
@@ -104,12 +104,12 @@ class Sentiment extends React.Component {
             <div>
                 <h1 style={style}>intwition.io</h1>
                 <div className="input">
-                    <TextField 
-                    value={query} variant="outlined" 
-                    label="Query" color="primary" 
-                    onChange={this.handleChange} 
-                    onKeyPress={this.keyPress}
-                    autoFocus/>
+                    <TextField
+                        value={query} variant="outlined"
+                        label="Query" color="primary"
+                        onChange={this.handleChange}
+                        onKeyPress={this.keyPress}
+                        autoFocus />
                 </div>
                 <div className="input">
                     <Button variant="contained" onClick={this.handleSubmit}>Analyze</Button>
@@ -118,16 +118,23 @@ class Sentiment extends React.Component {
                     {face}
                 </span>
                 <p>{this.state.sentiment}</p>
-                <div className="cloud">
-                    <TagCloud
-                        minSize={12}
-                        maxSize={35}
-                        tags={data}
-                        colorOptions={options}
-                        className="simple-cloud"
-                        onClick={this.clickCloud}
-                    />
-                </div>
+                <Grid container spacing={2}>
+                    <Grid item xs={6}>
+                        <div className="cloud">
+                            <TagCloud
+                                minSize={12}
+                                maxSize={35}
+                                tags={data}
+                                colorOptions={options}
+                                className="simple-cloud"
+                                onClick={this.clickCloud}
+                            />
+                        </div>
+                    </Grid>
+                    <Grid item xs={6}>
+                        {tweets}
+                    </Grid>
+                </Grid>
             </div>
         );
     }
