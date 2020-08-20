@@ -1,7 +1,7 @@
 import React from 'react';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import './App.css';
-import Sentiment from './sentiment/sentiment';
+import Home from './home/home';
 import 'typeface-roboto';
 
 const theme = createMuiTheme({
@@ -16,7 +16,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <div className="App">
         <header className="App-header">
-          <Sentiment />
+          <Home />
         </header>
       </div>
     </ThemeProvider>

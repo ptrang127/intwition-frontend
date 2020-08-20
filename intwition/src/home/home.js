@@ -1,6 +1,6 @@
 
 import React from 'react';
-import './sentiment.css';
+import './home.css';
 import axios from 'axios';
 
 import { TextField, Button, CircularProgress, Grid, Card, CardContent, CardActions, Typography } from '@material-ui/core';
@@ -15,19 +15,17 @@ import {
 import { TagCloud } from 'react-tagcloud';
 import { withTheme } from '@material-ui/core/styles'
 
-class Sentiment extends React.Component {
+class Home extends React.Component {
     constructor(props) {
         super(props);
-        //console.log(props);
 
         // local state
         this.state = {
             query: '',
-            sentiment: '',
             loading: false,
+            sentiment: '',
             tweets: [],
-            cloud: [],
-            actual_tweets: []
+            cloud: []
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -69,10 +67,10 @@ class Sentiment extends React.Component {
 
     // call API (TODO: turn into service)
     analyze() {
-        axios.get('http://localhost:8080/analyze/term/' + this.state.query)
+        axios.get('https://intwition-express-wi4vuqed3q-uc.a.run.app/analyze/term/' + this.state.query)
             .then(res => {
                 let response = res.data;
-                this.setState({ sentiment: response.sentiment.result, loading: false, tweets: response.tweets, cloud: response.cloud, actual_tweets: response.actual_tweets.statuses })
+                this.setState({ sentiment: response.sentiment.result, loading: false, tweets: response.tweets.statuses, cloud: response.cloud })
             }).catch(err => {
                 this.setState({ sentiment: "Error", loading: false, tweets: [], cloud: [] })
             })
@@ -83,7 +81,7 @@ class Sentiment extends React.Component {
         let sentiment = this.state.sentiment;
         let loading = this.state.loading;
         let query = this.state.query;
-        let actual_tweets = this.state.actual_tweets
+        let tweets = this.state.tweets
         let face;
 
         const data = this.state.cloud;
@@ -113,7 +111,7 @@ class Sentiment extends React.Component {
             face = <Error fontSize="large" style={{ fill: "red", fontSize: 200 }}></Error>
         }
 
-        let tweets = actual_tweets.map(tweet => {
+        let cards = tweets.map(tweet => {
             return (
                 <>
                     <Card variant="outlined" className="card">
@@ -167,7 +165,7 @@ class Sentiment extends React.Component {
                 </span>
                 <p>{sentiment}</p>
                 <div className="cards">
-                    {tweets}
+                    {cards}
                 </div>
 
                 <div className="cloud">
@@ -187,4 +185,4 @@ class Sentiment extends React.Component {
     }
 }
 
-export default withTheme(Sentiment);
+export default withTheme(Home);
