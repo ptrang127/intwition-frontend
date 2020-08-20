@@ -3,7 +3,7 @@ import React from 'react';
 import './sentiment.css';
 import axios from 'axios';
 
-import { TextField, Button, CircularProgress, useTheme, Grid, Card, CardContent, CardActions } from '@material-ui/core';
+import { TextField, Button, CircularProgress, Grid, Card, CardContent, CardActions } from '@material-ui/core';
 import {
     SentimentVeryDissatisfied,
     SentimentDissatisfied,
@@ -18,6 +18,7 @@ import { withTheme } from '@material-ui/core/styles'
 class Sentiment extends React.Component {
     constructor(props) {
         super(props);
+        //console.log(props);
 
         // local state
         this.state = {
@@ -112,14 +113,8 @@ class Sentiment extends React.Component {
             face = <Error fontSize="large" style={{ fill: "red", fontSize: 200 }}></Error>
         }
 
-        /*
-        let tweets = this.state.tweets.map(tweet => {
-            return <li>{tweet}</li>
-        });
-        */
-
-        let tweets = this.state.actual_tweets.map(tweet => {
-            return <Card variant="outlined" class="card">
+        let tweets = actual_tweets.map(tweet => {
+            return <Card variant="outlined" className="card">
                 <CardContent>
                     <p>{tweet.full_text}</p>
                 </CardContent>
@@ -136,12 +131,19 @@ class Sentiment extends React.Component {
         };
 
         return (
-            <div class="sentiment-container">
+            <div className="sentiment-container">
                 <h1 style={style}>intwition.io</h1>
                 <div className="input">
                     <TextField
                         value={query} variant="outlined"
                         label="Query" color="primary"
+                        className="input"
+                        InputProps={{
+                            style: {
+                                color: "#F5F5F5",
+                                borderColor: "#F5F5F5"
+                            }
+                        }}
                         onChange={this.handleChange}
                         onKeyPress={this.keyPress}
                         autoFocus />
@@ -153,7 +155,7 @@ class Sentiment extends React.Component {
                     {face}
                 </span>
                 <p>{sentiment}</p>
-                <div class="cards">
+                <div className="cards">
                     {tweets}
                 </div>
                 <Grid container spacing={2}>

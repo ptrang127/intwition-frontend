@@ -4,9 +4,16 @@ import './App.css';
 import Sentiment from './sentiment/sentiment';
 import 'typeface-roboto';
 
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#F5F5F5'
+    }
+  }
+});
 function App() {
   return (
-    <ThemeProvider>
+    <ThemeProvider theme={theme}>
       <div className="App">
         <header className="App-header">
           <Sentiment />
