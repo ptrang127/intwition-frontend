@@ -3,7 +3,7 @@ import React from 'react';
 import './sentiment.css';
 import axios from 'axios';
 
-import { TextField, Button, CircularProgress, useTheme, Grid } from '@material-ui/core';
+import { TextField, Button, CircularProgress, useTheme, Grid, Card, CardContent, CardActions } from '@material-ui/core';
 import {
     SentimentVeryDissatisfied,
     SentimentDissatisfied,
@@ -18,29 +18,43 @@ import { withTheme } from '@material-ui/core/styles'
 class Sentiment extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { query: '', sentiment: '', loading: false, tweets: [], cloud: [] };
+
+        // local state
+        this.state = {
+            query: '',
+            sentiment: '',
+            loading: false,
+            tweets: [],
+            cloud: [],
+            actual_tweets: []
+        };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.clickCloud = this.clickCloud.bind(this);
         this.keyPress = this.keyPress.bind(this);
+
     }
 
+    // when user types in text field
     handleChange(event) {
         this.setState({ query: event.target.value, sentiment: '', tweets: [], cloud: [] });
     }
 
+    // text field submit
     handleSubmit(event) {
         this.setState({ sentiment: '', loading: true, tweets: [], cloud: [] });
         event.preventDefault();
         this.analyze();
     }
 
+    // clicking on a word in the word cloud
     clickCloud(event) {
         this.setState({ query: event.value, sentiment: '', loading: true, tweets: [], cloud: [] })
         this.analyze();
     }
 
+    // handle each keystroke
     keyPress(event) {
         if (event.key === 'Enter') {
             event.preventDefault();
@@ -48,11 +62,16 @@ class Sentiment extends React.Component {
         }
     }
 
+    openTweet(tweet) {
+        window.open("https://www.twitter.com/" + tweet.user.screen_name + "/status/" + tweet.id_str, "_blank");
+    }
+
+    // call API (TODO: turn into service)
     analyze() {
         axios.get('http://localhost:8080/analyze/term/' + this.state.query)
             .then(res => {
                 let response = res.data;
-                this.setState({ sentiment: response.sentiment.result, loading: false, tweets: response.tweets, cloud: response.cloud })
+                this.setState({ sentiment: response.sentiment.result, loading: false, tweets: response.tweets, cloud: response.cloud, actual_tweets: response.actual_tweets.statuses })
             }).catch(err => {
                 this.setState({ sentiment: "Error", loading: false, tweets: [], cloud: [] })
             })
@@ -63,6 +82,7 @@ class Sentiment extends React.Component {
         let sentiment = this.state.sentiment;
         let loading = this.state.loading;
         let query = this.state.query;
+        let actual_tweets = this.state.actual_tweets
         let face;
 
         const data = this.state.cloud;
@@ -92,16 +112,31 @@ class Sentiment extends React.Component {
             face = <Error fontSize="large" style={{ fill: "red", fontSize: 200 }}></Error>
         }
 
+        /*
         let tweets = this.state.tweets.map(tweet => {
             return <li>{tweet}</li>
         });
+        */
+
+        let tweets = this.state.actual_tweets.map(tweet => {
+            return <Card variant="outlined" class="card">
+                <CardContent>
+                    <p>{tweet.full_text}</p>
+                </CardContent>
+                <CardActions>
+                    <Button variant="contained" size="small" onClick={() => this.openTweet(tweet)}>
+                        View Tweet
+                    </Button>
+                </CardActions>
+            </Card>
+        })
 
         const style = {
             color: theme.palette.primary.main
         };
 
         return (
-            <div>
+            <div class="sentiment-container">
                 <h1 style={style}>intwition.io</h1>
                 <div className="input">
                     <TextField
@@ -117,7 +152,10 @@ class Sentiment extends React.Component {
                 <span>
                     {face}
                 </span>
-                <p>{this.state.sentiment}</p>
+                <p>{sentiment}</p>
+                <div class="cards">
+                    {tweets}
+                </div>
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
                         <div className="cloud">
@@ -131,10 +169,12 @@ class Sentiment extends React.Component {
                             />
                         </div>
                     </Grid>
-                    <Grid item xs={6}>
+
+                    {/* <Grid item xs={6}>
                         {tweets}
-                    </Grid>
+                    </Grid> */}
                 </Grid>
+
             </div>
         );
     }
