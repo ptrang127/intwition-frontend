@@ -2,7 +2,7 @@
 import React from 'react';
 import './home.css';
 import axios from 'axios';
-import { TextField, Button, CircularProgress } from '@material-ui/core';
+import { TextField, Button, CircularProgress, Grid } from '@material-ui/core';
 import { TagCloud } from 'react-tagcloud';
 import { withTheme } from '@material-ui/core/styles';
 import Sentiment from '../sentiment/sentiment';
@@ -69,7 +69,7 @@ class Home extends React.Component {
         let loading = this.state.loading;
         let query = this.state.query;
         let sentiment = this.state.sentiment;
-        let tweets = this.state.tweets
+        let tweets = this.state.tweets.slice(0, 6);
         let cloud = this.state.cloud;
 
         let options = {
@@ -79,32 +79,40 @@ class Home extends React.Component {
 
         return (
             <div className="sentiment-container">
-
-                <h1 className="intwition-title">intwition.io</h1>
-
-                <div>
-                    <TextField
-                        value={query} variant="outlined"
-                        label="Query"
-                        onChange={this.handleChange}
-                        onKeyPress={this.keyPress}
-                        autoFocus />
-                </div>
-
-                <div className="input">
-                    <Button variant="contained" onClick={this.handleSubmit}>Analyze</Button>
-                </div>
-
-                {
-                    loading ?
-                        <div> <CircularProgress />
-                            <p>Analyzing tweets...</p>
+                <Grid container spacing={3} justify="center"
+                    alignItems="flex-start">
+                    <Grid item xs={12}>
+                        <h1 className="intwition-title">intwition.io</h1>
+                        <div>
+                            <TextField
+                                value={query} variant="outlined"
+                                label="Query"
+                                onChange={this.handleChange}
+                                onKeyPress={this.keyPress}
+                                autoFocus />
                         </div>
-                        : null
-                }
-
-                <Sentiment sentiment={sentiment}></Sentiment>
-                <TweetCards tweets={tweets}></TweetCards>
+                        <div className="input">
+                            <Button variant="contained" onClick={this.handleSubmit}>Analyze</Button>
+                        </div>
+                        {
+                            loading ?
+                                <div> <CircularProgress />
+                                    <p>Analyzing tweets...</p>
+                                </div>
+                                : null
+                        }
+                    </Grid>
+                    <Grid item sm={6}>
+                        <div className="component">
+                            <Sentiment sentiment={sentiment}></Sentiment>
+                        </div>
+                    </Grid>
+                    <Grid item sm={6}>
+                        <div className="component">
+                            <TweetCards tweets={tweets}></TweetCards>
+                        </div>
+                    </Grid>
+                </Grid>
 
                 {
                     cloud.length > 0 ? <div className="cloud">
