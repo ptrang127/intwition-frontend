@@ -2,7 +2,7 @@
 import React from 'react';
 import './home.css';
 import axios from 'axios';
-import { TextField, Button, CircularProgress, Card, CardContent, CardActions, Typography } from '@material-ui/core';
+import { TextField, Button, CircularProgress } from '@material-ui/core';
 import { TagCloud } from 'react-tagcloud';
 import { withTheme } from '@material-ui/core/styles';
 import Sentiment from '../sentiment/sentiment';
@@ -72,33 +72,21 @@ class Home extends React.Component {
         let tweets = this.state.tweets
 
         let cloud = this.state.cloud;
-        let { theme } = this.props;
 
         let options = {
             luminosity: 'light',
             hue: 'blue',
         }
 
-        const style = {
-            color: theme.palette.primary.main
-        };
-
         return (
             <div className="sentiment-container">
 
-                <h1>intwition.io</h1>
+                <h1 className="intwition-title">intwition.io</h1>
 
-                <div className="input">
+                <div>
                     <TextField
                         value={query} variant="outlined"
-                        label="Query" color="primary"
-                        className="input"
-                        InputProps={{
-                            style: {
-                                color: "#F5F5F5",
-                                borderColor: "#F5F5F5"
-                            }
-                        }}
+                        label="Query"
                         onChange={this.handleChange}
                         onKeyPress={this.keyPress}
                         autoFocus />

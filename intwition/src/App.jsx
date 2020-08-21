@@ -1,21 +1,13 @@
 import React from 'react';
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/core/styles';
 import './App.css';
 import Home from './home/home';
-import 'typeface-roboto';
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: '#FFFFFF'
-    }
-  }
-});
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <div className="App">
-        <header className="App-header">
+    <ThemeProvider>
+      <div className="app-container">
+        <header className="app-header">
           <Home />
         </header>
       </div>

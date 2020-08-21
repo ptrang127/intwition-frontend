@@ -2,6 +2,11 @@
     width: auto;
 }
 
+.intwition-title {
+    font-size: 5rem;
+    font-weight: bold;
+}
+
 .input {
     padding: 20px;
 }
