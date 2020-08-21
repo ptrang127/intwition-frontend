@@ -1,6 +1,5 @@
-.intwition-title {
-    font-size: 3.5rem;
-    font-weight: bold;
+.sentiment-container {
+    width: auto;
 }
 
 .input {
@@ -26,6 +25,7 @@
     border-radius: 4px;
     overflow-wrap: break-word;
     text-align: left;
+    background-color: blue;
 }
 
 .root {
@@ -36,12 +36,4 @@
 .details {
     display: flex;
     flex-direction: column;
-}
-
-.component {
-    border-radius: 1rem;
-    border: solid #4665EC;
-    box-shadow: 3px 3px 3px 3px gray;
-    margin: 2rem;
-    padding: 1rem;
 }

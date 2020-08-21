@@ -16,7 +16,7 @@ class Home extends React.Component {
         this.state = {
             query: '',
             loading: false,
-            sentiment: '',
+            sentiment: {},
             tweets: [],
             cloud: []
         };
@@ -48,6 +48,7 @@ class Home extends React.Component {
     // handle each keystroke
     keyPress(event) {
         if (event.key === 'Enter') {
+            this.setState({ loading: true, sentiment: '', tweets: [], cloud: [] });
             event.preventDefault();
             this.analyze();
         }
@@ -55,10 +56,10 @@ class Home extends React.Component {
 
     // call API (TODO: turn into service)
     analyze() {
-        axios.get('https://intwition-express-wi4vuqed3q-uc.a.run.app/analyze/term/' + this.state.query)
+        axios.get('http://localhost:8080/analyze/term/' + this.state.query)
             .then(res => {
                 let response = res.data;
-                this.setState({ loading: false, sentiment: response.sentiment.result, tweets: response.tweets.statuses, cloud: response.cloud })
+                this.setState({ loading: false, sentiment: response.sentiment, tweets: response.tweets.statuses, cloud: response.cloud })
             }).catch(err => {
                 this.setState({ loading: false, sentiment: "Error", tweets: [], cloud: [] })
             })
@@ -78,8 +79,8 @@ class Home extends React.Component {
         }
 
         return (
-            <div className="sentiment-container">
-                <Grid container spacing={3} justify="center"
+            <div>
+                <Grid container spacing={1} justify="center"
                     alignItems="flex-start">
                     <Grid item xs={12}>
                         <h1 className="intwition-title">intwition.io</h1>

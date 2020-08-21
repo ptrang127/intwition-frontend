@@ -1,39 +1,19 @@
 .sentiment-container {
-    width: auto;
-}
-
-.input {
-    padding: 20px;
-}
-
-.simple-cloud .tag-cloud-tag {
-    cursor: pointer;
-}
-
-.cards {
     display: inline-block;
-    margin: 2rem;
+    color: black;
+    text-align: center;
+    flex-wrap: wrap;
+    width: 100%;
 }
 
-.card {
-    margin: 1rem;
-    width: 200px;
-    height: 200px;
-    box-shadow: 2px 2px 2px 2px;
-    display: inline-flex;
-    font-size: 0.5rem;
-    border-radius: 4px;
-    overflow-wrap: break-word;
-    text-align: left;
-    background-color: blue;
+.sentiment-result {
+    display: inline-block;
+    text-align: center;
 }
 
-.root {
-    min-width: 200px;
-    display: flex;
-}
-
-.details {
-    display: flex;
-    flex-direction: column;
+.sentiment-analysis {
+    display: inline-block;
+    font-size: 1rem;
+    width: 50%;
+    text-align: center;
 }
