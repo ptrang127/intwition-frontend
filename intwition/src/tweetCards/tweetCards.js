@@ -21,6 +21,12 @@ class TweetCards extends React.Component {
         }
     }
 
+    // open a tweet
+    openTweet(tweet) {
+        window.open("https://www.twitter.com/" + tweet.user.screen_name + "/status/" + tweet.id_str, "_blank");
+    }
+
+
     render() {
         return (
             <>

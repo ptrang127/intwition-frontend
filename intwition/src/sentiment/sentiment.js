@@ -27,6 +27,7 @@ class Sentiment extends React.Component {
             this.setState({ sentiment: this.props.sentiment });
         }
     }
+    
 
     render() {
 
