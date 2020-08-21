@@ -1,6 +1,6 @@
 .app-container {
-  max-width: 90%;
-  margin: auto;
+  max-width: 85%;
+  margin: 0 auto;
   box-shadow: 0 12px 24px rgba(105, 130, 239, .15);
   text-align: center;
   background-color: #eef1fa;

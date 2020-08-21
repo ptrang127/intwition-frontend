@@ -3,18 +3,12 @@
 }
 
 .intwition-title {
-    font-size: 5rem;
+    font-size: 3.5rem;
     font-weight: bold;
 }
 
 .input {
     padding: 20px;
-}
-
-.cloud {
-    width: 600px;
-    height: 600px;
-    background-color: white;
 }
 
 .simple-cloud .tag-cloud-tag {

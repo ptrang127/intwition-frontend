@@ -70,7 +70,6 @@ class Home extends React.Component {
         let query = this.state.query;
         let sentiment = this.state.sentiment;
         let tweets = this.state.tweets
-
         let cloud = this.state.cloud;
 
         let options = {
@@ -107,16 +106,19 @@ class Home extends React.Component {
                 <Sentiment sentiment={sentiment}></Sentiment>
                 <TweetCards tweets={tweets}></TweetCards>
 
-                <div className="cloud">
-                    <TagCloud
-                        minSize={12}
-                        maxSize={35}
-                        tags={cloud}
-                        colorOptions={options}
-                        className="simple-cloud"
-                        onClick={this.clickCloud}
-                    />
-                </div>
+                {
+                    cloud.length > 0 ? <div className="cloud">
+                        <TagCloud
+                            minSize={12}
+                            maxSize={35}
+                            tags={cloud}
+                            colorOptions={options}
+                            className="simple-cloud"
+                            onClick={this.clickCloud}
+                        />
+                    </div>
+                        : null
+                }
 
             </div>
         );

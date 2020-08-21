@@ -1,5 +1,11 @@
+
+html {
+  box-sizing: inherit;
+}
+
 body {
   margin: 0;
+  display: block;
   background: #eef1fa;
   font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Segoe UI', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
