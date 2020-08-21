@@ -1,9 +1,6 @@
 
 import React from 'react';
 import './sentiment.css';
-import axios from 'axios';
-
-import { TextField, Button, CircularProgress, Grid, Card, CardContent, CardActions, Typography } from '@material-ui/core';
 import {
     SentimentVeryDissatisfied,
     SentimentDissatisfied,
@@ -12,94 +9,32 @@ import {
     SentimentVerySatisfied,
     Error
 } from '@material-ui/icons';
-import { TagCloud } from 'react-tagcloud';
 import { withTheme } from '@material-ui/core/styles'
 
 class Sentiment extends React.Component {
     constructor(props) {
         super(props);
-        //console.log(props);
-
         // local state
+        console.log(props);
         this.state = {
-            query: '',
-            sentiment: '',
-            loading: false,
-            tweets: [],
-            cloud: [],
-            actual_tweets: []
+            sentiment: this.props.sentiment
         };
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.clickCloud = this.clickCloud.bind(this);
-        this.keyPress = this.keyPress.bind(this);
-
     }
 
-    // when user types in text field
-    handleChange(event) {
-        this.setState({ query: event.target.value, sentiment: '', tweets: [], cloud: [] });
-    }
-
-    // text field submit
-    handleSubmit(event) {
-        this.setState({ sentiment: '', loading: true, tweets: [], cloud: [] });
-        event.preventDefault();
-        this.analyze();
-    }
-
-    // clicking on a word in the word cloud
-    clickCloud(event) {
-        this.setState({ query: event.value, sentiment: '', loading: true, tweets: [], cloud: [] })
-        this.analyze();
-    }
-
-    // handle each keystroke
-    keyPress(event) {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-            this.analyze();
+    // render component if props change
+    componentDidUpdate(prevProps) {
+        if (prevProps.sentiment !== this.props.sentiment) {
+            this.setState({ sentiment: this.props.sentiment });
         }
-    }
-
-    openTweet(tweet) {
-        window.open("https://www.twitter.com/" + tweet.user.screen_name + "/status/" + tweet.id_str, "_blank");
-    }
-
-    // call API (TODO: turn into service)
-    analyze() {
-        axios.get('http://localhost:8080/analyze/term/' + this.state.query)
-            .then(res => {
-                let response = res.data;
-                this.setState({ sentiment: response.sentiment.result, loading: false, tweets: response.tweets, cloud: response.cloud, actual_tweets: response.actual_tweets.statuses })
-            }).catch(err => {
-                this.setState({ sentiment: "Error", loading: false, tweets: [], cloud: [] })
-            })
     }
 
     render() {
 
+        // generate face
         let sentiment = this.state.sentiment;
-        let loading = this.state.loading;
-        let query = this.state.query;
-        let actual_tweets = this.state.actual_tweets
         let face;
 
-        const data = this.state.cloud;
-        const { theme } = this.props;
-
-        const options = {
-            luminosity: 'dark',
-            hue: 'blue',
-        }
-
-        if (loading) {
-            face = <>
-                <CircularProgress />
-                <p>Analyzing tweets...</p>
-            </>
-        } else if (sentiment === 'Very Negative') {
+        if (sentiment === 'Very Negative') {
             face = <SentimentVeryDissatisfied fontSize="large" style={{ fill: "red", fontSize: 200 }}></SentimentVeryDissatisfied>
         } else if (sentiment === 'Negative') {
             face = <SentimentDissatisfied fontSize="large" style={{ fill: "orange", fontSize: 200 }}></SentimentDissatisfied>
@@ -113,77 +48,14 @@ class Sentiment extends React.Component {
             face = <Error fontSize="large" style={{ fill: "red", fontSize: 200 }}></Error>
         }
 
-        let tweets = actual_tweets.map(tweet => {
-            return (
-                <>
-                    <Card variant="outlined" className="card">
-                        <CardContent>
-                            <Typography variant="h6" color="textSecondary">
-                                {tweet.user.name}
-                            </Typography>
-                            <Typography variant="caption" color="textSecondary">
-                                {tweet.full_text}
-                            </Typography>
-                        </CardContent>
-                        <CardActions>
-                            <Button variant="contained" size="small" onClick={() => this.openTweet(tweet)}>
-                                View Tweet
-                    </Button>
-                        </CardActions>
-                        <span>{tweet.retweet_count}</span>
-                        <span>{tweet.favorite_count}</span>
-                    </Card>
-                </>
-            )
-        })
-
-        const style = {
-            color: theme.palette.primary.main
-        };
-
-        return (
-            <div className="sentiment-container">
-                <h1 style={style}>intwition.io</h1>
-                <div className="input">
-                    <TextField
-                        value={query} variant="outlined"
-                        label="Query" color="primary"
-                        className="input"
-                        InputProps={{
-                            style: {
-                                color: "#F5F5F5",
-                                borderColor: "#F5F5F5"
-                            }
-                        }}
-                        onChange={this.handleChange}
-                        onKeyPress={this.keyPress}
-                        autoFocus />
-                </div>
-                <div className="input">
-                    <Button variant="contained" onClick={this.handleSubmit}>Analyze</Button>
-                </div>
+        return (this.props.sentiment ?
+            <div key={this.props.sentiment}>
                 <span>
                     {face}
                 </span>
-                <p>{sentiment}</p>
-                <div className="cards">
-                    {tweets}
-                </div>
-
-                <div className="cloud">
-                    <TagCloud
-                        minSize={12}
-                        maxSize={35}
-                        tags={data}
-                        colorOptions={options}
-                        className="simple-cloud"
-                        onClick={this.clickCloud}
-                    />
-                </div>
-
-
-            </div>
-        );
+                <div>{sentiment}</div>
+            </div >
+            : null)
     }
 }
 

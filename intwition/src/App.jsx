@@ -7,7 +7,7 @@ import 'typeface-roboto';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#F5F5F5'
+      main: '#FFFFFF'
     }
   }
 });
