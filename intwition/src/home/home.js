@@ -1,6 +1,6 @@
 
 import React from 'react';
-import './home.css';
+import './Home.css';
 import axios from 'axios';
 import { TextField, Button, CircularProgress, Grid } from '@material-ui/core';
 import { TagCloud } from 'react-tagcloud';
@@ -56,7 +56,7 @@ class Home extends React.Component {
 
     // call API (TODO: turn into service)
     analyze() {
-        axios.get('https://intwition-express-wi4vuqed3q-uc.a.run.app/analyze/term/' + this.state.query)
+        axios.get('http://localhost:8080/analyze/term/' + this.state.query)
             .then(res => {
                 let response = res.data;
                 this.setState({ loading: false, sentiment: response.sentiment, tweets: response.tweets.statuses, cloud: response.cloud })
@@ -80,7 +80,7 @@ class Home extends React.Component {
 
         return (
             <div>
-                <Grid container spacing={1} justify="center"
+                <Grid container spacing={0} justify="center"
                     alignItems="flex-start">
                     <Grid item xs={12}>
                         <h1 className="intwition-title">intwition.io</h1>
