@@ -1,3 +1,7 @@
+.main {
+    text-align: center;
+}
+
 .intwition-title {
     font-size: 3.5rem;
     font-weight: bold;
@@ -11,37 +15,10 @@
     cursor: pointer;
 }
 
-.cards {
-    display: inline-block;
-    margin: 2rem;
-}
-
-.card {
-    margin: 1rem;
-    width: 200px;
-    height: 200px;
-    box-shadow: 2px 2px 2px 2px;
-    display: inline-flex;
-    font-size: 0.5rem;
-    border-radius: 4px;
-    overflow-wrap: break-word;
-    text-align: left;
-}
-
-.root {
-    min-width: 200px;
-    display: flex;
-}
-
-.details {
-    display: flex;
-    flex-direction: column;
-}
 
 .component {
     border-radius: 1rem;
     border: solid #4665EC;
     box-shadow: 3px 3px 3px 3px gray;
-    margin: 2rem;
-    padding: 1rem;
+    margin: 1rem;
 }

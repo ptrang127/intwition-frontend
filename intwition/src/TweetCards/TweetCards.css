@@ -1,27 +1,14 @@
 .cards {
     display: inline-block;
     margin: 2rem;
+    text-align: left;
 }
 
 .card {
-    margin: 1rem;
-    width: 200px;
-    height: 200px;
-    box-shadow: 2px 2px 2px 2px;
-    display: inline-flex;
+    margin: 0.5rem;
+    width: 17rem;
+    height: 16rem;
+    box-shadow: 2px 2px 2px 2px gray;
+    display: inline-block;
     font-size: 0.5rem;
-    border-radius: 4px;
-    overflow-wrap: break-word;
-    text-align: left;
-    background-color: blue;
-}
-
-.root {
-    min-width: 200px;
-    display: flex;
-}
-
-.details {
-    display: flex;
-    flex-direction: column;
 }

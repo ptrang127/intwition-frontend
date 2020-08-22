@@ -2,7 +2,7 @@
 import React from 'react';
 import './TweetCards.css';
 import { withTheme } from '@material-ui/core/styles'
-import { Card, CardContent, Typography, CardActions, Button } from '@material-ui/core';
+import { Card, CardContent, Typography, CardActions, Button, Box } from '@material-ui/core';
 
 class TweetCards extends React.Component {
     constructor(props) {
@@ -29,29 +29,27 @@ class TweetCards extends React.Component {
 
     render() {
         return (
-            <>
+            <Box className="cards">
                 {this.props.tweets.map(tweet => {
-                    return <span key={tweet.full_text}>
-                        <Card variant="outlined" className="card">
+                    return (
+                        <Card key={tweet.full_text} variant="outlined" className="card">
                             <CardContent>
-                                <Typography variant="h6" color="textSecondary">
-                                    {tweet.user.name}
+                                <Typography variant="h6" component="h2" color="textSecondary" gutterBottom>
+                                    @{tweet.user.name}
                                 </Typography>
                                 <Typography variant="caption" color="textSecondary">
                                     {tweet.full_text}
                                 </Typography>
                             </CardContent>
                             <CardActions>
-                                <Button variant="contained" size="small" onClick={() => this.openTweet(tweet)}>
+                                <Button size="small" onClick={() => this.openTweet(tweet)}>
                                     View Tweet
-                    </Button>
+                                </Button>
                             </CardActions>
-                            <span>{tweet.retweet_count}</span>
-                            <span>{tweet.favorite_count}</span>
                         </Card>
-                    </span>
+                    )
                 })}
-            </>
+            </Box>
         )
     }
 }
