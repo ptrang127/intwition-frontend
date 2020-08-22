@@ -1,6 +1,6 @@
 
 import React from 'react';
-import './tweetCards.css';
+import './TweetCards.css';
 import { withTheme } from '@material-ui/core/styles'
 import { Card, CardContent, Typography, CardActions, Button } from '@material-ui/core';
 

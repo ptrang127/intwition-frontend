@@ -1,5 +1,5 @@
 import React from 'react';
-import './sentiment.css';
+import './Sentiment.css';
 import {
     SentimentVeryDissatisfied,
     SentimentDissatisfied,

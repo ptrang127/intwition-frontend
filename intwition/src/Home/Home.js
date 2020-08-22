@@ -5,8 +5,8 @@ import axios from 'axios';
 import { TextField, Button, CircularProgress, Grid } from '@material-ui/core';
 import { TagCloud } from 'react-tagcloud';
 import { withTheme } from '@material-ui/core/styles';
-import Sentiment from '../sentiment/sentiment';
-import TweetCards from '../tweetCards/tweetCards';
+import Sentiment from '../Sentiment/Sentiment';
+import TweetCards from '../TweetCards/TweetCards';
 
 class Home extends React.Component {
     constructor(props) {
