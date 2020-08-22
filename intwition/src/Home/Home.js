@@ -56,7 +56,7 @@ class Home extends React.Component {
 
     // call API (TODO: turn into service)
     analyze() {
-        axios.get('http://localhost:8080/analyze/term/' + this.state.query)
+        axios.get('https://intwition-express-wi4vuqed3q-uc.a.run.app/analyze/term/' + this.state.query)
             .then(res => {
                 let response = res.data;
                 this.setState({ loading: false, sentiment: response.sentiment, tweets: response.tweets.statuses, cloud: response.cloud })
