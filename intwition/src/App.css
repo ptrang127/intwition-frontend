@@ -1,7 +1,9 @@
 .app-container {
   margin: 0 auto;
+  padding: 2rem;
   box-shadow: 0 12px 24px rgba(105, 130, 239, .15);
   background-color: #FFFFFF;
   color: #4665EC;
+  padding-top: 60px;
   min-height: 90vh;
 }

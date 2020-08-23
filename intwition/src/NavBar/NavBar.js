@@ -1,16 +1,13 @@
 import React from 'react';
 import './NavBar.css';
 import { withTheme } from '@material-ui/core/styles'
-import { AppBar, Toolbar, Button, IconButton, Box } from '@material-ui/core';
+import { AppBar, Toolbar, Button, Box } from '@material-ui/core';
 import CloudIcon from '@material-ui/icons/Cloud';
 
 class NavBar extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
-        return <AppBar position="static">
+        return <AppBar position="fixed">
             <Toolbar>
                 <CloudIcon fontSize="large" />
                 <Box className="options">
@@ -20,6 +17,7 @@ class NavBar extends React.Component {
             </Toolbar>
         </AppBar>
     }
+    
 }
 
 export default withTheme(NavBar);
