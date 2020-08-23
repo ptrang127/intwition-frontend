@@ -15,10 +15,9 @@
     cursor: pointer;
 }
 
-
 .component {
-    border-radius: 1rem;
+    border-radius: 0.5rem;
     border: solid #4665EC;
-    box-shadow: 3px 3px 3px 3px gray;
+    box-shadow: 4px 4px 4px rgba(105, 130, 239, .5);
     margin: 1rem;
 }
