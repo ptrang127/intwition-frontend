@@ -6,23 +6,24 @@ import CloudIcon from '@material-ui/icons/Cloud';
 import {
     Link,
 } from "react-router-dom";
-import { spacing } from '@material-ui/system';
 
 
 class NavBar extends React.Component {
 
     render() {
-        return <AppBar position="fixed">
-            <Toolbar>
-                <IconButton colorPrimary="white" component={Link} to="/" >
-                    <CloudIcon fontSize="large" />
-                </IconButton>
-                <Box className="options">
-                    <Button component={Link} to="/" color="inherit">Home</Button>
-                    <Button component={Link} to="/about" color="inherit" pl="2rem">About</Button>
-                </Box>
-            </Toolbar>
-        </AppBar>
+        return (
+            <AppBar position="fixed">
+                <Toolbar>
+                    <IconButton colorPrimary="white" component={Link} to="/" >
+                        <CloudIcon fontSize="large" />
+                    </IconButton>
+                    <Box className="options">
+                        <Button component={Link} to="/" color="inherit">Home</Button>
+                        <Button component={Link} to="/about" color="inherit" pl="2rem">About</Button>
+                    </Box>
+                </Toolbar>
+            </AppBar>
+        )
     }
 
 }

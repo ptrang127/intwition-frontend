@@ -2,7 +2,7 @@
 import React from 'react';
 import './Home.css';
 import axios from 'axios';
-import { TextField, Button, CircularProgress, Grid, Box } from '@material-ui/core';
+import { TextField, Button, CircularProgress, Grid, Box, Typography } from '@material-ui/core';
 import { TagCloud } from 'react-tagcloud';
 import { withTheme } from '@material-ui/core/styles';
 import Sentiment from '../Sentiment/Sentiment';
@@ -79,64 +79,58 @@ class Home extends React.Component {
         }
 
         return (
-            <div>
-                <Grid container spacing={0} justify="center"
-                    alignItems="flex-start">
-                    <Grid item xs={12}>
-                        <Box className="main">
-                            <h1 className="intwition-title">intwition.io</h1>
-                            <Box>
-                                <TextField
-                                    value={query} variant="outlined"
-                                    label="Query"
-                                    onChange={this.handleChange}
-                                    onKeyPress={this.keyPress}
-                                    autoFocus />
-                            </Box>
-                            <Box className="input">
-                                <Button variant="contained" onClick={this.handleSubmit}>Analyze</Button>
-                            </Box>
-                            {
-                                loading ?
-                                    <Box> <CircularProgress />
-                                        <p>Analyzing tweets...</p>
-                                    </Box>
-                                    : null
-                            }
+            <Grid container spacing={3}>
+                <Grid item xs={12} lg={12}>
+                    <Box textAlign="center">
+                        <Typography color="primary" variant="h2" style={{ fontWeight: "bold", paddingTop: "2rem", paddingBottom: "2rem" }}>intwition.io</Typography>
+                        <TextField
+                            value={query} variant="outlined"
+                            label="Query"
+                            onChange={this.handleChange}
+                            onKeyPress={this.keyPress}
+                            autoFocus />
+                        <Box className="input">
+                            <Button variant="contained" onClick={this.handleSubmit}>Analyze</Button>
                         </Box>
-                    </Grid>
-                    {tweets.length > 0 ?
-                        <>
-                            <Grid item sm={6}>
-                                <div className="component">
-                                    <Sentiment sentiment={sentiment}></Sentiment>
-                                </div>
-                            </Grid>
-                            <Grid item sm={6}>
-                                <div className="component">
-                                    <TweetCards tweets={tweets}></TweetCards>
-                                </div>
-                            </Grid>
-                        </>
-                        : null
-                    }
+                        {
+                            loading ?
+                                <Box>
+                                    <CircularProgress />
+                                    <p>Analyzing tweets...</p>
+                                </Box>
+                                : null
+                        }
+                    </Box>
                 </Grid>
-
-                {
-                    cloud.length > 0 ? <div className="cloud">
-                        <TagCloud
-                            minSize={12}
-                            maxSize={35}
-                            tags={cloud}
-                            colorOptions={options}
-                            className="simple-cloud"
-                            onClick={this.clickCloud}
-                        />
-                    </div>
-                        : null
+                {tweets.length > 0 ?
+                    <>
+                        <Grid item xs={12} lg={6}>
+                            <div className="component">
+                                <Sentiment sentiment={sentiment}></Sentiment>
+                            </div>
+                        </Grid>
+                        <Grid item xs={12} lg={6}>
+                            <div class="component">
+                                <TagCloud
+                                    minSize={12}
+                                    maxSize={35}
+                                    tags={cloud}
+                                    colorOptions={options}
+                                    className="simple-cloud"
+                                    onClick={this.clickCloud}
+                                />
+                            </div>
+                        </Grid>
+                        <Grid item xs={12} lg={12}>
+                            <div className="component">
+                                <TweetCards tweets={tweets}></TweetCards>
+                            </div>
+                        </Grid>
+                    </>
+                    : null
                 }
+            </Grid>
 
-            </div>
         );
     }
 }
