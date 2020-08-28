@@ -59,7 +59,7 @@ class Home extends React.Component {
         axios.get('https://intwition-express-wi4vuqed3q-uc.a.run.app/analyze/term/' + this.state.query)
             .then(res => {
                 let response = res.data;
-                this.setState({ loading: false, sentiment: response.sentiment, tweets: response.tweets.statuses, cloud: response.cloud })
+                this.setState({ loading: false, sentiment: response.sentiment, tweets: response.tweets, cloud: response.cloud })
             }).catch(err => {
                 this.setState({ loading: false, sentiment: "Error", tweets: [], cloud: [] })
             })
@@ -70,7 +70,7 @@ class Home extends React.Component {
         let loading = this.state.loading;
         let query = this.state.query;
         let sentiment = this.state.sentiment;
-        let tweets = this.state.tweets.slice(0, 6);
+        let tweets = this.state.tweets;
         let cloud = this.state.cloud;
 
         let options = {

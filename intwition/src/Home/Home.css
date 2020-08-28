@@ -7,8 +7,8 @@
 }
 
 .component {
-    border-radius: 0.5rem;
-    border: solid #4665EC;
+    border-radius: 0.2rem;
+    border: 4px solid rgba(105, 130, 239, .8);;
     box-shadow: 4px 4px 4px rgba(105, 130, 239, .5);
     height: 100%;
 }
