@@ -2,17 +2,18 @@
 import React from 'react';
 import './Home.css';
 import axios from 'axios';
-import { TextField, Button, CircularProgress, Grid, Box, Typography } from '@material-ui/core';
-import { TagCloud } from 'react-tagcloud';
-import { withTheme } from '@material-ui/core/styles';
 import Sentiment from '../Sentiment/Sentiment';
+import Cloud from '../Cloud/Cloud';
 import TweetCards from '../TweetCards/TweetCards';
+import { TextField, Button, CircularProgress, Grid, Box, Typography, Paper } from '@material-ui/core';
+import { withTheme } from '@material-ui/core/styles';
+
 
 class Home extends React.Component {
+
     constructor(props) {
         super(props);
 
-        // local state
         this.state = {
             query: '',
             loading: false,
@@ -58,7 +59,7 @@ class Home extends React.Component {
     analyze() {
         axios.get('https://intwition-express-wi4vuqed3q-uc.a.run.app/analyze/term/' + this.state.query)
             .then(res => {
-                let response = res.data;
+                var response = res.data;
                 this.setState({ loading: false, sentiment: response.sentiment, tweets: response.tweets, cloud: response.cloud })
             }).catch(err => {
                 this.setState({ loading: false, sentiment: "Error", tweets: [], cloud: [] })
@@ -67,16 +68,11 @@ class Home extends React.Component {
 
     render() {
 
-        let loading = this.state.loading;
-        let query = this.state.query;
-        let sentiment = this.state.sentiment;
-        let tweets = this.state.tweets;
-        let cloud = this.state.cloud;
-
-        let options = {
-            luminosity: 'light',
-            hue: 'blue',
-        }
+        var loading = this.state.loading;
+        var query = this.state.query;
+        var sentiment = this.state.sentiment;
+        var cloud = this.state.cloud;
+        var tweets = this.state.tweets.slice(0, 20);
 
         return (
             <Grid container spacing={3}>
@@ -100,31 +96,30 @@ class Home extends React.Component {
                                 </Box>
                                 : null
                         }
+                        {tweets.length > 0 ?
+                            <>
+                                {this.state.tweets.length} Tweets analyzed...
+                            </>
+                            : null
+                        }
                     </Box>
                 </Grid>
                 {tweets.length > 0 ?
                     <>
                         <Grid item xs={12} lg={6}>
-                            <div className="component">
+                            <Paper elevation={3} className="component">
                                 <Sentiment sentiment={sentiment}></Sentiment>
-                            </div>
+                            </Paper>
                         </Grid>
                         <Grid item xs={12} lg={6}>
-                            <div class="component">
-                                <TagCloud
-                                    minSize={12}
-                                    maxSize={35}
-                                    tags={cloud}
-                                    colorOptions={options}
-                                    className="simple-cloud"
-                                    onClick={this.clickCloud}
-                                />
-                            </div>
+                            <Paper elevation={3} className="component">
+                                <Cloud cloud={cloud}></Cloud>
+                            </Paper>
                         </Grid>
                         <Grid item xs={12} lg={12}>
-                            <div className="component">
+                            <Paper elevation={3} className="component">
                                 <TweetCards tweets={tweets}></TweetCards>
-                            </div>
+                            </Paper>
                         </Grid>
                     </>
                     : null

@@ -19,7 +19,8 @@ class About extends React.Component {
                         <Grid lg={3}></Grid>
                         <Grid lg={6}>
                             <Typography variant="subtitle1">
-                                intwition is a web application used to gain insight into the fast-paced happenings and discussions on Twitter. Utilizing Twitter's API, we at intwition are able to provide meaningful data using intensive deep maching learning algorithms.
+                                intwition is a web application used to gain insight into the fast-paced happenings and discussions on Twitter. 
+                                Utilizing the Twitter and Google Cloud Natural Language API, we at intwition use powerful pre-trained models to understand social media sentiment and customer conversations.
                             </Typography>
                         </Grid>
                         <Grid lg={3}></Grid>

@@ -14,7 +14,7 @@ class NavBar extends React.Component {
         return (
             <AppBar position="fixed">
                 <Toolbar>
-                    <IconButton colorPrimary="white" component={Link} to="/" >
+                    <IconButton component={Link} to="/" >
                         <CloudIcon fontSize="large" />
                     </IconButton>
                     <Box className="options">

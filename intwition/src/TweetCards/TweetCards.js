@@ -5,13 +5,13 @@ import { withTheme } from '@material-ui/core/styles'
 import { Card, CardContent, Typography, CardActions, Button, Box } from '@material-ui/core';
 
 class TweetCards extends React.Component {
+
     constructor(props) {
         super(props);
 
         this.state = {
             tweets: this.props.tweets
         };
-
     }
 
     // render component if props change
@@ -25,7 +25,6 @@ class TweetCards extends React.Component {
     openTweet(tweet) {
         window.open("https://www.twitter.com/" + tweet.user.screen_name + "/status/" + tweet.id_str, "_blank");
     }
-
 
     render() {
         return (
@@ -52,6 +51,7 @@ class TweetCards extends React.Component {
             </Box>
         )
     }
+    
 }
 
 export default withTheme(TweetCards);
